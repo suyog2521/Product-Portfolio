@@ -157,10 +157,10 @@
   .hero-actions{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
 
   /* ---- Hero top: text + photo ---- */
-  .hero-top{ display:grid; grid-template-columns:1fr 240px; gap:48px; align-items:center; }
+  .hero-top{ display:grid; grid-template-columns:1fr 240px; gap:48px; align-items:start; }
   .hero-photo{
     justify-self:end; width:220px; height:220px; border-radius:50%;
-    padding:6px; background:var(--paper);
+    padding:6px; background:var(--paper); margin-top:28px;
     border:1px solid var(--line); position:relative;
   }
   .hero-photo::before{
@@ -172,7 +172,7 @@
   }
   @media (max-width:800px){
     .hero-top{ grid-template-columns:1fr; gap:28px; }
-    .hero-photo{ justify-self:start; width:120px; height:120px; order:-1; }
+    .hero-photo{ justify-self:start; width:120px; height:120px; order:-1; margin-top:0; }
   }
   .btn{
     display:inline-flex; align-items:center; gap:8px;
