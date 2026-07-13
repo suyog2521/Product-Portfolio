@@ -131,7 +131,7 @@
     padding:16px 20px; font-size:15px; color:var(--ink); text-decoration:none;
     border-bottom:1px solid var(--line);
   }
-  .mobile-nav .nav-cta{ text-align:center; margin:14px 20px; border-bottom:none; }
+  .mobile-nav .nav-cta{ text-align:center; margin:14px 20px; border-bottom:none; color:var(--paper); }
 
   @media (max-width:720px){
     .nav-links{ display:none; }
@@ -434,6 +434,51 @@
   .tl-desc{ font-size:14.5px; color:var(--slate); margin-top:6px; max-width:64ch; line-height:1.6; }
   @media (max-width:600px){ .tl-item{ grid-template-columns:1fr; gap:6px; } }
 
+  /* ============ POSTS / WRITING ============ */
+  .posts{ padding:70px 0; border-top:1px solid var(--line); }
+  .posts-head-row{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .posts-nav{ display:flex; gap:10px; margin-bottom:2px; }
+  .posts-arrow{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    background:var(--paper); display:flex; align-items:center; justify-content:center;
+    color:var(--ink); transition:all .2s ease; padding:0;
+  }
+  .posts-arrow:hover:not(:disabled){ border-color:var(--ink); background:var(--paper-alt); }
+  .posts-arrow:disabled{ opacity:.32; cursor:default; }
+  .posts-arrow svg{ width:18px; height:18px; display:block; }
+
+  .posts-slider{ margin-top:36px; position:relative; }
+  .posts-track{
+    --slides:3.5; --gap:20px;
+    display:flex; gap:var(--gap); overflow-x:auto; scroll-snap-type:x mandatory;
+    scroll-behavior:smooth; padding:2px 2px 6px; margin:0 -2px;
+    -ms-overflow-style:none; scrollbar-width:none;
+  }
+  .posts-track::-webkit-scrollbar{ display:none; }
+  .li-post{
+    flex:0 0 calc((100% - (var(--slides) - 1) * var(--gap)) / var(--slides));
+    scroll-snap-align:start;
+    display:flex; flex-direction:column; height:420px;
+    border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--paper-alt);
+  }
+  .li-post-frame{ flex:1; min-height:0; overflow-y:auto; background:var(--paper); }
+  .li-post-frame iframe{ width:100%; height:100%; display:block; border:none; }
+  .li-post-link{
+    display:block; flex-shrink:0; text-align:center; font-family:var(--font-mono); font-size:12px; font-weight:600;
+    color:var(--signal); background:var(--paper); padding:10px 12px; text-decoration:none;
+    border-top:1px solid var(--line); letter-spacing:.02em; transition:background .2s ease;
+  }
+  .li-post-link:hover{ background:var(--signal-light); }
+
+  @media (max-width:900px){ .posts-track{ --slides:2.2; } .li-post{ height:400px; } }
+  @media (max-width:640px){
+    .posts-track{ --slides:1.15; }
+    .li-post{ height:380px; }
+    .posts-nav{ margin-bottom:0; }
+  }
+
   /* ============ TOOLKIT ============ */
   .toolkit{ padding:70px 0; border-top:1px solid var(--line); }
   .tk-group{ margin-bottom:26px; }
@@ -472,9 +517,10 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#posts">Writing</a></li>
       <li><a href="#toolkit">Toolkit</a></li>
     </ul>
-    <a class="nav-cta nav-cta-desktop" href="mailto:suyog2521@gmail.com">Get in touch</a>
+    <a class="nav-cta nav-cta-desktop" href="#contact">Get in touch</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
       <span></span><span></span><span></span>
     </button>
@@ -483,8 +529,9 @@
     <a href="#work">Work</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
+    <a href="#posts">Writing</a>
     <a href="#toolkit">Toolkit</a>
-    <a class="nav-cta" href="mailto:suyog2521@gmail.com">Get in touch</a>
+    <a class="nav-cta" href="#contact">Get in touch</a>
   </div>
 </header>
 
@@ -504,7 +551,7 @@
           </p>
           <div class="hero-actions reveal">
             <a href="#work" class="btn btn-primary">View case studies</a>
-            <a href="mailto:suyog2521@gmail.com" class="btn btn-ghost">Email me</a>
+            <a href="resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Resume</a>
             <a href="https://www.linkedin.com/in/suyog2521/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
           </div>
         </div>
@@ -1079,6 +1126,55 @@
     </div>
   </section>
 
+  <!-- ===================== POSTS / WRITING ===================== -->
+  <section class="posts" id="posts">
+    <div class="wrap">
+      <div class="posts-head-row reveal">
+        <div class="section-head" style="margin-bottom:0;">
+          <p class="eyebrow">Writing</p>
+          <h2>Product thinking, shared in public.</h2>
+        </div>
+        <div class="posts-nav">
+          <button class="posts-arrow" id="postsPrev" aria-label="Previous posts">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="posts-arrow" id="postsNext" aria-label="Next posts">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="posts-slider reveal">
+        <div class="posts-track" id="postsTrack">
+          <div class="li-post">
+            <div class="li-post-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7477021026351136768?collapsed=1" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Embedded LinkedIn post"></iframe></div>
+            <a class="li-post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7477021026351136768/" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+          <div class="li-post">
+            <div class="li-post-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7340917166507986944?collapsed=1" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Embedded LinkedIn post"></iframe></div>
+            <a class="li-post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7340917166507986944/" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+          <div class="li-post">
+            <div class="li-post-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7338851684007170049?collapsed=1" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Embedded LinkedIn post"></iframe></div>
+            <a class="li-post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7338851684007170049/" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+          <div class="li-post">
+            <div class="li-post-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7325915041361248256?collapsed=1" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Embedded LinkedIn post"></iframe></div>
+            <a class="li-post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7325915041361248256/" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+          <div class="li-post">
+            <div class="li-post-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7211404487226232832?collapsed=1" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Embedded LinkedIn post"></iframe></div>
+            <a class="li-post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7211404487226232832/" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+          <div class="li-post">
+            <div class="li-post-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7191445481401573377?collapsed=1" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Embedded LinkedIn post"></iframe></div>
+            <a class="li-post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7191445481401573377/" target="_blank" rel="noopener">View on LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== TOOLKIT ===================== -->
   <section class="toolkit" id="toolkit">
     <div class="wrap">
@@ -1236,6 +1332,29 @@
       btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
+
+  // Posts slider — arrow-driven scroll, with disabled-state at each end
+  const postsTrack = document.getElementById('postsTrack');
+  const postsPrev = document.getElementById('postsPrev');
+  const postsNext = document.getElementById('postsNext');
+  if(postsTrack && postsPrev && postsNext){
+    function slideAmount(){
+      const card = postsTrack.querySelector('.li-post');
+      if(!card) return postsTrack.clientWidth;
+      const gap = parseFloat(getComputedStyle(postsTrack).gap) || 20;
+      return card.getBoundingClientRect().width + gap;
+    }
+    function updatePostsArrows(){
+      const maxScroll = postsTrack.scrollWidth - postsTrack.clientWidth - 1;
+      postsPrev.disabled = postsTrack.scrollLeft <= 0;
+      postsNext.disabled = postsTrack.scrollLeft >= maxScroll;
+    }
+    postsPrev.addEventListener('click', ()=> postsTrack.scrollBy({left:-slideAmount(), behavior:'smooth'}));
+    postsNext.addEventListener('click', ()=> postsTrack.scrollBy({left:slideAmount(), behavior:'smooth'}));
+    postsTrack.addEventListener('scroll', updatePostsArrows, {passive:true});
+    window.addEventListener('resize', updatePostsArrows);
+    updatePostsArrows();
+  }
 </script>
 
 </body>
