@@ -106,8 +106,38 @@
     transition:background .2s ease;
   }
   .nav-cta:hover{ background:var(--signal); }
+
+  /* ---- Mobile nav toggle ---- */
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:36px; height:36px; background:none; border:none; padding:0;
+    align-items:center;
+  }
+  .nav-toggle span{
+    display:block; width:22px; height:2px; background:var(--ink);
+    transition:transform .25s ease, opacity .2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none; flex-direction:column; overflow:hidden;
+    max-height:0; transition:max-height .3s ease;
+    background:var(--paper); border-top:1px solid var(--line);
+  }
+  .mobile-nav.open{ max-height:320px; }
+  .mobile-nav a{
+    padding:16px 20px; font-size:15px; color:var(--ink); text-decoration:none;
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-nav .nav-cta{ text-align:center; margin:14px 20px; border-bottom:none; }
+
   @media (max-width:720px){
     .nav-links{ display:none; }
+    .nav-cta-desktop{ display:none; }
+    .nav-toggle{ display:flex; }
+    .mobile-nav{ display:flex; }
   }
 
   /* ============ HERO ============ */
@@ -125,6 +155,25 @@
     margin-top:22px; max-width:56ch; font-size:18px; color:var(--slate); line-height:1.65;
   }
   .hero-actions{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* ---- Hero top: text + photo ---- */
+  .hero-top{ display:grid; grid-template-columns:1fr 240px; gap:48px; align-items:center; }
+  .hero-photo{
+    justify-self:end; width:220px; height:220px; border-radius:50%;
+    padding:6px; background:var(--paper);
+    border:1px solid var(--line); position:relative;
+  }
+  .hero-photo::before{
+    content:''; position:absolute; inset:-8px; border-radius:50%;
+    border:1px solid var(--signal); opacity:0.35;
+  }
+  .hero-photo img{
+    width:100%; height:100%; border-radius:50%; object-fit:cover; display:block;
+  }
+  @media (max-width:800px){
+    .hero-top{ grid-template-columns:1fr; gap:28px; }
+    .hero-photo{ justify-self:start; width:120px; height:120px; order:-1; }
+  }
   .btn{
     display:inline-flex; align-items:center; gap:8px;
     font-size:14.5px; font-weight:600; text-decoration:none;
@@ -270,7 +319,18 @@
   }
 
   /* ---- Inline pipeline diagram ---- */
-  .pipeline-diagram{ margin-top:16px; width:100%; height:auto; }
+  .pipeline-diagram-wrap{
+    margin-top:16px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    border-radius:8px;
+  }
+  .pipeline-diagram{ width:100%; height:auto; min-width:640px; display:block; }
+  .diagram-hint{
+    display:none; font-family:var(--font-mono); font-size:10.5px; color:var(--slate-light);
+    margin-top:6px; text-align:center;
+  }
+  @media (max-width:720px){
+    .diagram-hint{ display:block; }
+  }
   .pd-box{ fill:var(--paper-alt); stroke:var(--line); }
   .pd-box.accent{ fill:var(--signal-light); stroke:var(--signal); }
   .pd-title{ font-family:var(--font-body); font-size:12.5px; font-weight:600; fill:var(--ink); }
@@ -414,6 +474,16 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#toolkit">Toolkit</a></li>
     </ul>
+    <a class="nav-cta nav-cta-desktop" href="mailto:suyog2521@gmail.com">Get in touch</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#toolkit">Toolkit</a>
     <a class="nav-cta" href="mailto:suyog2521@gmail.com">Get in touch</a>
   </div>
 </header>
@@ -423,17 +493,24 @@
   <!-- ===================== HERO ===================== -->
   <section class="hero">
     <div class="wrap">
-      <p class="hero-eyebrow reveal">Product Manager — End-to-End Funnel Ownership</p>
-      <h1 class="reveal">I own the funnel, end to end — and turn ambiguity into <em>compounding</em> growth.</h1>
-      <p class="hero-sub reveal">
-        4+ years owning the full journey — acquisition to retention — for three different
-        businesses. Scaling revenue 30x, cutting operational losses in half, and building the
-        infrastructure that made every decision measurable, at Traya Health, Pluckk, and Pilgrim.
-      </p>
-      <div class="hero-actions reveal">
-        <a href="#work" class="btn btn-primary">View case studies</a>
-        <a href="mailto:suyog2521@gmail.com" class="btn btn-ghost">Email me</a>
-        <a href="https://www.linkedin.com/in/suyog2521/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      <div class="hero-top">
+        <div>
+          <p class="hero-eyebrow reveal">Product Manager — End-to-End Funnel Ownership</p>
+          <h1 class="reveal">I own the funnel, end to end — and turn ambiguity into <em>compounding</em> growth.</h1>
+          <p class="hero-sub reveal">
+            4+ years owning the full journey — acquisition to retention — for three different
+            businesses. Scaling revenue 30x, cutting operational losses in half, and building the
+            infrastructure that made every decision measurable, at Traya Health, Pluckk, and Pilgrim.
+          </p>
+          <div class="hero-actions reveal">
+            <a href="#work" class="btn btn-primary">View case studies</a>
+            <a href="mailto:suyog2521@gmail.com" class="btn btn-ghost">Email me</a>
+            <a href="https://www.linkedin.com/in/suyog2521/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+          </div>
+        </div>
+        <div class="hero-photo reveal">
+          <img src="profile.webp" alt="Suyog Thakur">
+        </div>
       </div>
 
       <div class="ticker reveal">
@@ -545,6 +622,7 @@
             </ul>
             <p class="context-note">Web pipeline went live May 7; the app pipeline June 22.</p>
 
+            <div class="pipeline-diagram-wrap">
             <svg class="pipeline-diagram" viewBox="0 0 940 190" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <marker id="arrPG2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
@@ -589,6 +667,8 @@
               <rect class="pd-badge accent-cobalt" x="680" y="140" width="205" height="36" rx="18"/>
               <text class="pd-badge-text cobalt" x="782" y="163" text-anchor="middle">Built solo in 2 weeks</text>
             </svg>
+            </div>
+            <p class="diagram-hint">← swipe to see the full diagram →</p>
 
             <span class="exp-label">Holding Cost at ~₹14K (the discipline)</span>
             <p>The previous attempt blew up because it captured everything, indiscriminately. I
@@ -1130,6 +1210,22 @@
     }
   } catch(err){ fireTicker(); }
   setTimeout(fireTicker, 2500); // hard guarantee numbers always populate
+
+  // Mobile nav toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileNav = document.getElementById('mobileNav');
+  if(navToggle && mobileNav){
+    navToggle.addEventListener('click', ()=>{
+      const isOpen = mobileNav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    mobileNav.querySelectorAll('a').forEach(link=>{
+      link.addEventListener('click', ()=>{
+        mobileNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // Case card expand/collapse
   document.querySelectorAll('.case-card').forEach(card=>{
