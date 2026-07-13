@@ -126,7 +126,7 @@
     max-height:0; transition:max-height .3s ease;
     background:var(--paper); border-top:1px solid var(--line);
   }
-  .mobile-nav.open{ max-height:320px; }
+  /* max-height set dynamically in JS to match actual content, so it can't clip as links are added/removed */
   .mobile-nav a{
     padding:16px 20px; font-size:15px; color:var(--ink); text-decoration:none;
     border-bottom:1px solid var(--line);
@@ -1314,11 +1314,13 @@
     navToggle.addEventListener('click', ()=>{
       const isOpen = mobileNav.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', String(isOpen));
+      mobileNav.style.maxHeight = isOpen ? mobileNav.scrollHeight + 'px' : '0';
     });
     mobileNav.querySelectorAll('a').forEach(link=>{
       link.addEventListener('click', ()=>{
         mobileNav.classList.remove('open');
         navToggle.setAttribute('aria-expanded', 'false');
+        mobileNav.style.maxHeight = '0';
       });
     });
   }
