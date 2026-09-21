@@ -242,11 +242,11 @@
   }
   .case-left{ display:flex; align-items:center; gap:20px; flex:1; min-width:0;}
   .case-mark{
-    font-family:var(--font-mono); font-weight:600; font-size:12.5px; letter-spacing:-0.02em;
-    width:44px; height:44px; border-radius:50%;
+    width:44px; height:44px; border-radius:10px; padding:6px;
     display:flex; align-items:center; justify-content:center; flex-shrink:0;
-    background:var(--signal-light); color:var(--signal);
+    background:var(--paper); border:1px solid var(--line);
   }
+  .case-mark img{ width:100%; height:100%; object-fit:contain; display:block; }
   .case-titles{ min-width:0; }
   .case-titles .company{ font-size:12.5px; font-family:var(--font-mono); color:var(--slate); letter-spacing:0.04em; text-transform:uppercase; }
   .case-titles h3{ font-size:19px; margin-top:4px; font-weight:600; font-family:var(--font-body); }
@@ -631,7 +631,7 @@
       <article class="case-card reveal" data-open="false">
         <button class="case-summary" aria-expanded="false">
           <div class="case-left">
-            <div class="case-mark">PG</div>
+            <div class="case-mark"><img src="discover_pilgrim_logo.jpg" alt="Pilgrim logo"></div>
             <div class="case-titles">
               <p class="company">Pilgrim</p>
               <h3>Owning the Funnel — and the Infrastructure Behind It</h3>
@@ -765,7 +765,7 @@
       <article class="case-card reveal" data-open="false">
         <button class="case-summary" aria-expanded="false">
           <div class="case-left">
-            <div class="case-mark">PK</div>
+            <div class="case-mark"><img src="pluckk_logo.jpg" alt="Pluckk logo"></div>
             <div class="case-titles">
               <p class="company">Pluckk</p>
               <h3>Cutting Perishable Losses &amp; Automating Reconciliation</h3>
@@ -912,7 +912,7 @@
       <article class="case-card reveal" data-open="false">
         <button class="case-summary" aria-expanded="false">
           <div class="case-left">
-            <div class="case-mark">TH</div>
+            <div class="case-mark"><img src="traya_logo.jpg" alt="Traya Health logo"></div>
             <div class="case-titles">
               <p class="company">Traya Health</p>
               <h3>Scaling a Web Growth Funnel, 30x</h3>
